@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--1.引入外部文件的标签	-->
+    <!--<properties resource="properties/db.properties"></properties>-->
+
+    <!-- <settings>
+        &lt;!&ndash;	可以在控制台输出日志信息：sql语句和参数 &ndash;&gt;
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>-->
+
+    <!-- 2.表示类型别名	库-->
+    <typeAliases>
+        <!-- 2.1每一个类型的别名	type属性表示别名对应的类型地址 alias表示起的别名-->
+        <typeAlias type="java.util.List" alias="list"/>
+        <typeAlias type="java.util.Set" alias="set"/>
+        <!-- package表示包，利用包的形式进行扫描包之下的所有的类，别名就是当前类名 -->
+        <package name="com.team.house.entity"/>
+
+    </typeAliases>
+
+    <!-- 分页插件 -->
+     <plugins>
+<plugin interceptor="com.github.pagehelper.PageInterceptor">
+<!--    3.3.0版本可用 - 分页参数合理化，默认false禁用
+pageNum表示当前页	pages表示尾页
+true启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页false禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据-->
+<property name="reasonable"	value="true"/>
+</plugin>
+</plugins>
+    <!-- &lt;!&ndash; 3.环境配置	作为连接数据库的环境 &ndash;&gt;
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>-->
+    <!-- mappers表示代理模式扫描 ，目的主要是在当前配置文件中扫描到sql映射文件-->
+    <mappers>
+       <!-- <mapper resource="mapper/BookMapper.xml"/>-->
+        <!-- <mapper resource="classpath:com/team/house/mapper/*.xml"></mapper>-->
+        <mapper resource="com/team/house/mapper/DistrictMapper.xml"></mapper>
+        <mapper resource="com/team/house/mapper/HouseMapper.xml"></mapper>
+        <mapper resource="com/team/house/mapper/StreetMapper.xml"></mapper>
+        <mapper resource="com/team/house/mapper/TypeMapper.xml"></mapper>
+        <mapper resource="com/team/house/mapper/UsersMapper.xml"></mapper>
+
+    </mappers>
+</configuration>
